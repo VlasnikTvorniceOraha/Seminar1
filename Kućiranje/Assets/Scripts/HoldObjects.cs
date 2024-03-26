@@ -42,6 +42,7 @@ public class HoldObjects : MonoBehaviour
 
         if (holding && Input.GetKeyDown(pickUpKey)) {
             //pusti item, provjeri je li unutar neke sobe
+            
             heldObject.transform.SetParent(prijasnjiParent.transform, true);
             if (hasGravity) {
                 objectBody.useGravity = true;
