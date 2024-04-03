@@ -10,6 +10,8 @@ TagManager:
   - Room
   - StrujniObjekt
   - VanSobe
+  - EndPosUI
+  - UILogger
   layers:
   - Default
   - TransparentFX

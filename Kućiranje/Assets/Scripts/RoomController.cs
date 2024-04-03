@@ -21,11 +21,14 @@ public class RoomController : MonoBehaviour
     public HoldObjects holdObjects;
 
     public GameObject objektiVanSobe;
+
+    InGameLogger logger;
     void Start()
     {
         playerInfo = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>();
         holdObjects = GameObject.FindGameObjectWithTag("Player").GetComponent<HoldObjects>();
         objektiVanSobe =  GameObject.FindGameObjectWithTag("VanSobe");
+        logger = GameObject.FindGameObjectWithTag("UILogger").GetComponent<InGameLogger>();
     }
 
     // Update is called once per frame
@@ -132,7 +135,7 @@ public class RoomController : MonoBehaviour
         //provjeri je li item usao u trigger
 
         if (other.gameObject.layer == 12) {
-            Debug.Log("Item usao, pokusavam spojit");
+            //Debug.Log("Item usao, pokusavam spojit");
             //stavi roditelja ovisno o tipu objekta
             if (!holdObjects.holding || (holdObjects.holding && holdObjects.heldObject != other.gameObject)) {
                 //igrac ne drzi nista, samo spoji ovisno o tagu ili drzi objekt i zgurao je neki drugi objekt u sobu
@@ -192,7 +195,7 @@ public class RoomController : MonoBehaviour
         if (other.tag == "Player") {
             //assignaj ovu sobu kao trenutnu
             playerInfo.currentRoom = this.GetComponent<RoomController>();
-            Debug.Log("Usao u novu sobu");
+            logger.SpawnPopup("Usao u " + this.gameObject.name);
         }
     }
 

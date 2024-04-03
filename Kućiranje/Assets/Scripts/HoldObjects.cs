@@ -25,11 +25,14 @@ public class HoldObjects : MonoBehaviour
 
     Rigidbody objectBody;
 
+    InGameLogger logger;
+
 
     void Start()
     {
         itemLayer = LayerMask.GetMask("Item");
         holding = false;
+        logger = GameObject.FindGameObjectWithTag("UILogger").GetComponent<InGameLogger>();
     }
 
     // Update is called once per frame
@@ -47,7 +50,7 @@ public class HoldObjects : MonoBehaviour
             if (hasGravity) {
                 objectBody.useGravity = true;
             }
-            
+            logger.SpawnPopup("Dropped " + heldObject.name);
             objectBody.constraints = RigidbodyConstraints.None;
             heldObject = null;
             holding = false;
@@ -58,6 +61,7 @@ public class HoldObjects : MonoBehaviour
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 4, itemLayer)) {
                 //pokupi item
                 heldObject = hit.transform.gameObject;
+                logger.SpawnPopup("Picked up " + heldObject.name);
                 holding = true;
                 prijasnjiParent = heldObject.transform.parent.gameObject;
                 heldObject.transform.SetParent(parent.transform, true);
